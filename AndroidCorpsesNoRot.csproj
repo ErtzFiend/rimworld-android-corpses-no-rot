@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>AndroidCorpsesNoRot</AssemblyName>
+    <RootNamespace>AndroidCorpsesNoRot</RootNamespace>
+    <OutputType>Library</OutputType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <NoWarn>$(NoWarn);MSB3277</NoWarn>
+    <GameManagedDir Condition="'$(GameManagedDir)' == ''">/root/rimworld_libs</GameManagedDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony"><HintPath>$(GameManagedDir)/0Harmony.dll</HintPath></Reference>
+    <Reference Include="RimWorld"><HintPath>$(GameManagedDir)/RimWorld.dll</HintPath></Reference>
+    <Reference Include="Assembly-CSharp"><HintPath>$(GameManagedDir)/Assembly-CSharp.dll</HintPath></Reference>
+    <Reference Include="UnityStubs"><HintPath>$(GameManagedDir)/UnityStubs.dll</HintPath></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Source/AndroidCorpsesNoRotMain.cs" />
+    <Compile Include="Source/HarmonyPatches.cs" />
+  </ItemGroup>
+  <Target Name="CopyToVersionedAssemblies" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)1.7/Assemblies" />
+  </Target>
+</Project>
